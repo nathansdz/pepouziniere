@@ -176,3 +176,23 @@ select cron.schedule('pepouziniere-chat-purge', '17 3 * * *', $$
   where bucket_id = 'chat'
     and created_at < now() - interval '15 days';
 $$);
+
+-- ---------- Membres visibles uniquement par l'admin ----------
+
+alter table public.profiles add column if not exists is_admin boolean not null default false;
+
+create or replace function public.is_current_admin()
+returns boolean
+language sql
+security definer set search_path = public
+stable
+as $$
+  select exists (
+    select 1 from public.profiles
+    where id = auth.uid() and is_admin
+  );
+$$;
+
+drop policy if exists "profiles lisibles par tous" on public.profiles;
+create policy "profiles lisibles par l'admin" on public.profiles
+  for select using (public.is_current_admin());

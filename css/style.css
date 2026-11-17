@@ -954,6 +954,56 @@ select:focus {
   transform: scale(0.92);
 }
 
+/* ---------- Page Membres (admin) ---------- */
+
+.admin-page h1 {
+  color: var(--green-dark);
+  font-size: 2rem;
+}
+
+.admin-table-wrap {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th {
+  text-align: left;
+  color: var(--green-dark);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 2px solid var(--green-light);
+}
+
+.admin-table td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid rgba(169, 132, 103, 0.2);
+  font-size: 0.95rem;
+}
+
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+.member-pseudo {
+  color: var(--green-dark);
+  font-weight: bold;
+}
+
+.member-date {
+  color: var(--brown);
+  font-size: 0.85rem;
+}
+
 /* ---------- Footer ---------- */
 
 .site-footer {

@@ -52,10 +52,35 @@ export async function signOut() {
   await supabase.auth.signOut();
 }
 
+export async function isAdmin() {
+  if (!supabase) return false;
+  var user = await getCurrentUser();
+  if (!user) return false;
+  var res = await supabase
+    .from("profiles")
+    .select("id")
+    .eq("id", user.id)
+    .limit(1);
+  return !res.error && res.data && res.data.length > 0;
+}
+
 export async function renderUserChip() {
   if (!supabase) return;
   var user = await getCurrentUser();
   if (!user) return;
+
+  if (await isAdmin()) {
+    var nav = document.querySelector(".nav-links");
+    if (nav && !document.getElementById("admin-link")) {
+      var li = document.createElement("li");
+      li.id = "admin-link";
+      var a = document.createElement("a");
+      a.href = "admin.html";
+      a.textContent = "Membres";
+      li.appendChild(a);
+      nav.insertBefore(li, nav.querySelector(".dropdown") || nav.lastChild);
+    }
+  }
 
   var nav = document.querySelector(".nav-links");
   if (!nav || document.getElementById("user-chip")) return;
