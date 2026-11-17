@@ -101,6 +101,28 @@ drop policy if exists "profile modifiable par son propriétaire" on public.profi
 create policy "profile modifiable par son propriétaire" on public.profiles
   for update using (auth.uid() = id);
 
+-- ---------- Solde de la cagnotte (mise à jour manuelle) ----------
+
+create table if not exists public.pot_balance (
+  id int primary key default 1 check (id = 1),
+  amount numeric not null default 0,
+  updated_at timestamptz not null default now()
+);
+
+insert into public.pot_balance (id, amount) values (1, 0)
+on conflict (id) do nothing;
+
+alter table public.pot_balance enable row level security;
+
+drop policy if exists "pot_balance lisible par tous" on public.pot_balance;
+create policy "pot_balance lisible par tous" on public.pot_balance
+  for select using (true);
+
+drop policy if exists "pot_balance modifiable par les connectés" on public.pot_balance;
+create policy "pot_balance modifiable par les connectés" on public.pot_balance
+  for update using (auth.role() = 'authenticated')
+  with check (auth.role() = 'authenticated');
+
 -- Crée automatiquement le profil à l'inscription (métadonnées de signup)
 create or replace function public.handle_new_user()
 returns trigger

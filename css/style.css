@@ -609,6 +609,86 @@ select:focus {
   color: var(--white);
 }
 
+/* ---------- Solde de la cagnotte ---------- */
+
+.pot-balance-card {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  border-left: 6px solid var(--orange);
+}
+
+.pot-balance-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.pot-balance-label {
+  color: var(--brown);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.pot-amount {
+  color: var(--green-dark);
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.pot-updated {
+  color: var(--brown);
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.pot-edit-toggle {
+  background: var(--cream);
+  border: 1.5px solid var(--brown-light);
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  color: var(--brown);
+  font-size: 1rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.pot-edit-toggle:hover {
+  background: var(--orange-light);
+  border-color: var(--orange);
+  color: var(--white);
+}
+
+.pot-editor {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  width: 100%;
+}
+
+.pot-editor input {
+  max-width: 220px;
+}
+
+.pot-editor .btn {
+  padding: 0.5rem 1.2rem;
+}
+
+.pot-update-message {
+  width: 100%;
+  color: #a3401e;
+  font-size: 0.85rem;
+}
+
 /* ---------- Page Cultiver ---------- */
 
 .cultures-page h1 {
