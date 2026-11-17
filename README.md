@@ -8,6 +8,7 @@ Application de gestion des parties extérieures de l'internat de l'hôpital de l
 - **To-Do** (`todo.html`) : propositions de choses à faire avec titre, description, budget estimé et priorité (*Urgent*, *Normal*, *Ça peut attendre*).
 - **Participer** (menu déroulant) : lien vers la cagnotte Lydia.
 - **Cultiver** (`cultures.html`) : recommandations de plantation et fruits/légumes de saison pour le climat marseillais.
+- **Chat** (`chat.html`) : messages et photos du jardin, supprimés automatiquement après 15 jours (purge quotidienne via `pg_cron`).
 
 ## Lien de la cagnotte Lydia
 

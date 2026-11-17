@@ -123,3 +123,56 @@ drop trigger if exists on_auth_user_created on auth.users;
 create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function public.handle_new_user();
+
+-- ---------- Chat (messages + photos, purge à 15 jours) ----------
+
+create table if not exists public.chat_messages (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) on delete set null,
+  pseudo text not null,
+  content text,
+  image_path text,
+  created_at timestamptz not null default now(),
+  constraint chat_has_content check (content is not null or image_path is not null)
+);
+
+create index if not exists idx_chat_created on public.chat_messages(created_at desc);
+
+alter table public.chat_messages enable row level security;
+
+drop policy if exists "chat lisible par les connectés" on public.chat_messages;
+create policy "chat lisible par les connectés" on public.chat_messages
+  for select using (auth.role() = 'authenticated');
+
+drop policy if exists "chat insérable par les connectés" on public.chat_messages;
+create policy "chat insérable par les connectés" on public.chat_messages
+  for insert with check (
+    auth.role() = 'authenticated' and user_id = auth.uid()
+  );
+
+-- Bucket de stockage public pour les photos
+insert into storage.buckets (id, name, public)
+values ('chat', 'chat', true)
+on conflict (id) do nothing;
+
+drop policy if exists "photos chat lisibles par tous" on storage.objects;
+create policy "photos chat lisibles par tous" on storage.objects
+  for select using (bucket_id = 'chat');
+
+drop policy if exists "photos chat upload par les connectés" on storage.objects;
+create policy "photos chat upload par les connectés" on storage.objects
+  for insert to authenticated with check (
+    bucket_id = 'chat' and owner = auth.uid()
+  );
+
+-- Purge quotidienne : suppression au-delà de 15 jours
+create extension if not exists pg_cron;
+
+select cron.schedule('pepouziniere-chat-purge', '17 3 * * *', $$
+  delete from public.chat_messages
+  where created_at < now() - interval '15 days';
+
+  delete from storage.objects
+  where bucket_id = 'chat'
+    and created_at < now() - interval '15 days';
+$$);
