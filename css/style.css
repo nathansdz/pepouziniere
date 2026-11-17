@@ -169,13 +169,7 @@ a {
   font-size: 2.6rem;
   color: var(--green-dark);
   letter-spacing: 0.04em;
-}
-
-.tagline {
-  max-width: 34rem;
-  margin: 0.75rem auto 1.75rem;
-  color: var(--brown-dark);
-  font-size: 1.05rem;
+  margin-bottom: 1.75rem;
 }
 
 .hero-actions {
@@ -566,28 +560,157 @@ select:focus {
 .user-chip {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.55rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(250, 246, 239, 0.25);
+  border-radius: 999px;
+  padding: 0.25rem 0.35rem 0.25rem 0.3rem;
+}
+
+.user-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--orange);
+  color: var(--white);
+  font-size: 0.95rem;
+  font-weight: bold;
+  flex-shrink: 0;
 }
 
 .user-name {
-  color: var(--orange-light);
-  font-style: italic;
+  color: var(--cream);
+  font-size: 0.9rem;
+  white-space: nowrap;
 }
 
 .logout-btn {
-  background: none;
-  border: 1.5px solid var(--orange-light);
-  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
   color: var(--cream);
-  font: inherit;
-  font-size: 0.8rem;
-  padding: 0.25rem 0.8rem;
+  opacity: 0.8;
   cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s ease, opacity 0.15s ease, color 0.15s ease;
 }
 
 .logout-btn:hover {
   background: var(--orange);
+  opacity: 1;
   color: var(--white);
+}
+
+/* ---------- Page Cultiver ---------- */
+
+.cultures-page h1 {
+  color: var(--green-dark);
+  font-size: 2rem;
+}
+
+.season-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.season-card {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  border-top: 4px solid var(--green-light);
+}
+
+.season-card:nth-child(2) {
+  border-top-color: var(--orange);
+}
+
+.season-card:nth-child(3) {
+  border-top-color: var(--brown-light);
+}
+
+.season-card:nth-child(4) {
+  border-top-color: var(--green);
+}
+
+.season-card h2 {
+  color: var(--green-dark);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.season-emoji {
+  font-size: 1.3rem;
+}
+
+.season-months {
+  color: var(--brown);
+  font-size: 0.85rem;
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+.season-card h3,
+.tips h3 {
+  color: var(--brown-dark);
+  font-size: 0.95rem;
+  margin-bottom: 0.4rem;
+}
+
+.plant-list {
+  list-style: none;
+  margin-bottom: 1rem;
+}
+
+.plant-list li {
+  position: relative;
+  padding-left: 1.1rem;
+  margin-bottom: 0.35rem;
+  font-size: 0.92rem;
+}
+
+.plant-list li::before {
+  content: "🌿";
+  position: absolute;
+  left: 0;
+  font-size: 0.75rem;
+}
+
+.tips .plant-list li::before {
+  content: none;
+}
+
+.season-harvest {
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: var(--cream);
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+}
+
+.tips {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+}
+
+.tips h2 {
+  color: var(--green-dark);
+  margin-bottom: 1rem;
 }
 
 /* ---------- Footer ---------- */

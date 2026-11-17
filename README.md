@@ -1,4 +1,4 @@
-# Potachill 🌱
+# La Pépouzinière 🌱
 
 Application de gestion des parties extérieures de l'internat de l'hôpital de la Timone (Marseille) : potager, terrain de pétanque, petit jardin et cour intérieure.
 
@@ -7,6 +7,7 @@ Application de gestion des parties extérieures de l'internat de l'hôpital de l
 - **Accueil** (`index.html`) : présentation sobre, couleurs du potager (vert, marron, orange), clin d'œil à Marseille avec le signe Jul.
 - **To-Do** (`todo.html`) : propositions de choses à faire avec titre, description, budget estimé et priorité (*Urgent*, *Normal*, *Ça peut attendre*).
 - **Participer** (menu déroulant) : lien vers la cagnotte Lydia.
+- **Cultiver** (`cultures.html`) : recommandations de plantation et fruits/légumes de saison pour le climat marseillais.
 
 ## Lien de la cagnotte Lydia
 
@@ -16,7 +17,7 @@ Elle est branchée sur tous les liens « Participer » (menu déroulant, bouton 
 
 ## Données
 
-Les propositions To-Do sont stockées localement (`localStorage`) en attendant un backend partagé.
+Le site de gestion des espaces extérieurs de l'internat de la Timone : To-Do partagée, likes, page Cultiver et cagnotte Lydia.
 
 ## Backend partagé (Supabase)
 

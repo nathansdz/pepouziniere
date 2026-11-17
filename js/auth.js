@@ -64,19 +64,30 @@ export async function renderUserChip() {
   li.id = "user-chip";
   li.className = "user-chip";
 
+  var pseudo =
+    (user.user_metadata && user.user_metadata.pseudo) || user.email || "Interne";
+
+  var avatar = document.createElement("span");
+  avatar.className = "user-avatar";
+  avatar.setAttribute("aria-hidden", "true");
+  avatar.textContent = pseudo.charAt(0).toUpperCase();
+
   var name = document.createElement("span");
   name.className = "user-name";
-  name.textContent =
-    (user.user_metadata && user.user_metadata.pseudo) || user.email || "Interne";
+  name.textContent = pseudo;
 
   var logout = document.createElement("button");
   logout.className = "logout-btn";
-  logout.textContent = "Déconnexion";
+  logout.title = "Déconnexion";
+  logout.setAttribute("aria-label", "Déconnexion");
+  logout.innerHTML =
+    '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>';
   logout.addEventListener("click", async function () {
     await signOut();
     window.location.href = "login.html";
   });
 
+  li.appendChild(avatar);
   li.appendChild(name);
   li.appendChild(logout);
   nav.appendChild(li);

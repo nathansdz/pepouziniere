@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cultiver — La Pépouzinière</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">
+        <span class="brand-name">La Pépouzinière</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="todo.html">To-Do</a></li>
+        <li><a href="cultures.html" aria-current="page">Cultiver</a></li>
+        <li class="dropdown">
+          <button class="dropdown-toggle" aria-expanded="false" aria-controls="participer-menu">Participer ▾</button>
+          <ul class="dropdown-menu" id="participer-menu" hidden>
+            <li>
+              <a href="https://pots.lydia.me/collect/pots?id=86480-pepouziniere" target="_blank" rel="noopener">
+                Cagnotte Lydia
+                <span class="menu-hint">Soutenir le projet</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="cultures-page">
+    <h1>Cultiver 🍅</h1>
+    <p class="page-intro">
+      Repères pour le potager de la Timone, sous le climat méditerranéen de Marseille :
+      ce qu'on peut semer ou planter, et ce qui se récolte au fil des saisons.
+    </p>
+
+    <section class="season-grid">
+      <article class="season-card">
+        <h2>Printemps <span class="season-emoji">🌱</span></h2>
+        <p class="season-months">Mars — Mai</p>
+        <h3>À semer / planter</h3>
+        <ul class="plant-list">
+          <li>Tomates, poivrons, aubergines (après les saints de glace, mi-mai)</li>
+          <li>Courgettes, concombres, haricots</li>
+          <li>Basilic, courges, melons</li>
+          <li>Salades, radis, carottes</li>
+        </ul>
+        <h3>De saison</h3>
+        <p class="season-harvest">Asperges, fraises, radis, épinards, petits pois, fèves, artichauts</p>
+      </article>
+
+      <article class="season-card">
+        <h2>Été <span class="season-emoji">☀️</span></h2>
+        <p class="season-months">Juin — Août</p>
+        <h3>À semer / planter</h3>
+        <ul class="plant-list">
+          <li>Haricots, courges de fin de saison</li>
+          <li>Salades d'été (à arroser le soir)</li>
+          <li>Fenouil, poireaux d'hiver (fin août)</li>
+          <li>Pourpier, roquette</li>
+        </ul>
+        <h3>De saison</h3>
+        <p class="season-harvest">Tomates, courgettes, aubergines, poivrons, melons, pastèques, pêches, abricots, figues (fin d'été)</p>
+      </article>
+
+      <article class="season-card">
+        <h2>Automne <span class="season-emoji">🍂</span></h2>
+        <p class="season-months">Septembre — Novembre</p>
+        <h3>À semer / planter</h3>
+        <ul class="plant-list">
+          <li>Épinards, mâche, laitues d'hiver</li>
+          <li>Ails, oignons, échalotes</li>
+          <li>Pois, fèves (novembre)</li>
+          <li>Radis d'hiver, choux</li>
+        </ul>
+        <h3>De saison</h3>
+        <p class="season-harvest">Raisins, figues, châtaignes, potimarrons, poires, pommes, betteraves, carottes</p>
+      </article>
+
+      <article class="season-card">
+        <h2>Hiver <span class="season-emoji">❄️</span></h2>
+        <p class="season-months">Décembre — Février</p>
+        <h3>À semer / planter</h3>
+        <ul class="plant-list">
+          <li>Petits pois, fèves (dans le sud, possible dès février)</li>
+          <li>Laitues d'hiver sous cloche</li>
+          <li>Préparation du sol, compost, taille</li>
+          <li>Semis sous abri de mars approchant</li>
+        </ul>
+        <h3>De saison</h3>
+        <p class="season-harvest">Choux, poireaux, mâche, épinards, citrons, oranges, clémentines (producteurs locaux)</p>
+      </article>
+    </section>
+
+    <section class="tips">
+      <h2>Conseils pour le climat marseillais</h2>
+      <ul class="plant-list">
+        <li>🪴 <strong>Arrosage</strong> : le soir ou tôt le matin ; le mistral assèche vite, paillez le sol pour garder l'humidité.</li>
+        <li>🌞 <strong>Exposition</strong> : plein soleil pour tomates, poivrons, courges ; mi-ombre pour salades et herbes.</li>
+        <li>🔁 <strong>Rotation</strong> : ne replantez pas la même famille au même endroit deux années de suite (solanacées, cucurbitacées, fabacées…).</li>
+        <li>💧 <strong>Réserve d'eau</strong> : pensez à un récupérateur d'eau de pluie pour la cour intérieure.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>La Pépouzinière — Internat de la Timone, Marseille 🧿</p>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/main.js"></script>
+  <script type="module">
+    import { requireAuth, renderUserChip } from "./js/auth.js";
+    if (await requireAuth()) renderUserChip();
+  </script>
+</body>
+</html>
