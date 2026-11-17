@@ -1,10 +1,12 @@
 var STORAGE_KEY = "potachill-todos";
+var LIKED_KEY = "potachill-liked-ids";
 var PRIORITY_ORDER = { urgent: 0, normal: 1, later: 2 };
 var PRIORITY_LABELS = { urgent: "Urgent", normal: "Normal", later: "Ça peut attendre" };
 
 var form = document.getElementById("todo-form");
 var list = document.getElementById("todo-list");
 var emptyMsg = document.getElementById("todo-empty");
+var sortSelect = document.getElementById("todo-sort");
 
 function loadTodos() {
   try {
@@ -18,10 +20,37 @@ function saveTodos(todos) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
 }
 
+function loadLikedIds() {
+  try {
+    return JSON.parse(localStorage.getItem(LIKED_KEY)) || [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveLikedIds(ids) {
+  localStorage.setItem(LIKED_KEY, JSON.stringify(ids));
+}
+
+function sortTodos(todos) {
+  var sorted = todos.slice();
+  if (sortSelect.value === "likes") {
+    sorted.sort(function (a, b) {
+      return (b.likes || 0) - (a.likes || 0) ||
+        PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority];
+    });
+  } else {
+    sorted.sort(function (a, b) {
+      return PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority] ||
+        (b.likes || 0) - (a.likes || 0);
+    });
+  }
+  return sorted;
+}
+
 function render() {
-  var todos = loadTodos().sort(function (a, b) {
-    return PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority];
-  });
+  var likedIds = loadLikedIds();
+  var todos = sortTodos(loadTodos());
 
   list.innerHTML = "";
   emptyMsg.hidden = todos.length > 0;
@@ -60,6 +89,34 @@ function render() {
     content.appendChild(body);
     content.appendChild(meta);
 
+    var actions = document.createElement("div");
+    actions.className = "todo-actions";
+
+    var like = document.createElement("button");
+    like.className = "todo-like" + (likedIds.indexOf(todo.id) !== -1 ? " liked" : "");
+    like.setAttribute("aria-label", "Soutenir cette proposition");
+    like.title = "J'aime cette proposition";
+    like.innerHTML = '<span class="heart" aria-hidden="true">♥</span><span class="like-count">' + (todo.likes || 0) + "</span>";
+    like.addEventListener("click", function () {
+      var currentLiked = loadLikedIds();
+      var todosNow = loadTodos();
+      var target = todosNow.filter(function (t) { return t.id === todo.id; })[0];
+      if (!target) return;
+
+      var index = currentLiked.indexOf(todo.id);
+      if (index !== -1) {
+        currentLiked.splice(index, 1);
+        target.likes = Math.max(0, (target.likes || 0) - 1);
+      } else {
+        currentLiked.push(todo.id);
+        target.likes = (target.likes || 0) + 1;
+      }
+
+      saveLikedIds(currentLiked);
+      saveTodos(todosNow);
+      render();
+    });
+
     var del = document.createElement("button");
     del.className = "todo-delete";
     del.title = "Supprimer";
@@ -70,11 +127,17 @@ function render() {
         return t.id !== todo.id;
       });
       saveTodos(remaining);
+      saveLikedIds(loadLikedIds().filter(function (id) {
+        return id !== todo.id;
+      }));
       render();
     });
 
+    actions.appendChild(like);
+    actions.appendChild(del);
+
     li.appendChild(content);
-    li.appendChild(del);
+    li.appendChild(actions);
     list.appendChild(li);
   });
 }
@@ -88,6 +151,7 @@ form.addEventListener("submit", function (e) {
     description: form.description.value.trim(),
     budget: form.budget.value,
     priority: form.priority.value,
+    likes: 0,
     createdAt: Date.now()
   };
 
@@ -99,5 +163,7 @@ form.addEventListener("submit", function (e) {
   form.priority.value = "normal";
   render();
 });
+
+sortSelect.addEventListener("change", render);
 
 render();

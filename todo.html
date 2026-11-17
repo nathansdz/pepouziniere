@@ -64,7 +64,16 @@
     </section>
 
     <section class="todo-list-section">
-      <h2>Propositions</h2>
+      <div class="list-header">
+        <h2>Propositions</h2>
+        <div class="sort-group">
+          <label for="todo-sort">Trier par</label>
+          <select id="todo-sort">
+            <option value="priority" selected>Priorité</option>
+            <option value="likes">Popularité</option>
+          </select>
+        </div>
+      </div>
       <ul id="todo-list" class="todo-list"></ul>
       <p id="todo-empty" class="todo-empty" hidden>Aucune proposition pour l'instant. Sois le premier à en ajouter une !</p>
     </section>
