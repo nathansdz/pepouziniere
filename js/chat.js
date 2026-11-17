@@ -13,6 +13,8 @@ var input = document.getElementById("chat-input");
 var photoInput = document.getElementById("chat-photo-input");
 var photoBtn = document.getElementById("chat-photo-btn");
 var photoPreview = document.getElementById("chat-photo-preview");
+var photoPreviewWrap = document.getElementById("chat-photo-preview-wrap");
+var photoRemove = document.getElementById("chat-photo-remove");
 var errorMsg = document.getElementById("chat-error");
 
 var selectedFile = null;
@@ -62,17 +64,17 @@ photoInput.addEventListener("change", function () {
   if (!file) return;
   selectedFile = file;
   photoPreview.src = URL.createObjectURL(file);
-  photoPreview.hidden = false;
+  photoPreviewWrap.hidden = false;
 });
 
 function clearPhoto() {
   selectedFile = null;
   photoInput.value = "";
   photoPreview.src = "";
-  photoPreview.hidden = true;
+  photoPreviewWrap.hidden = true;
 }
 
-photoPreview.addEventListener("click", clearPhoto);
+photoRemove.addEventListener("click", clearPhoto);
 
 async function sendMessage() {
   var content = input.value.trim();
@@ -131,6 +133,21 @@ input.addEventListener("keydown", function (e) {
   }
 });
 
+var counter = document.getElementById("chat-counter");
+
+function autoGrow() {
+  input.style.height = "auto";
+  input.style.height = Math.min(input.scrollHeight, 120) + "px";
+}
+
+input.addEventListener("input", function () {
+  autoGrow();
+  if (counter) {
+    counter.textContent = input.value.length + "/500";
+    counter.hidden = input.value.length === 0;
+  }
+});
+
 function timeLabel(date) {
   var now = new Date();
   var diff = (now - date) / 1000;
@@ -163,25 +180,33 @@ async function render() {
   var myId = user ? user.id : null;
 
   messages.forEach(function (msg) {
+    var pseudo = (msg.pseudo || "Interne").trim();
+
     var li = document.createElement("li");
     li.className = "chat-message" + (msg.user_id === myId ? " mine" : "");
 
     var head = document.createElement("div");
     head.className = "chat-message-head";
 
+    var avatarWrap = document.createElement("span");
+    avatarWrap.className = "chat-avatar-wrap";
+
     var avatar = document.createElement("span");
     avatar.className = "chat-avatar";
-    avatar.textContent = msg.pseudo.charAt(0).toUpperCase();
+    avatar.setAttribute("aria-hidden", "true");
+    avatar.textContent = pseudo.charAt(0).toUpperCase();
+
+    avatarWrap.appendChild(avatar);
 
     var name = document.createElement("span");
     name.className = "chat-message-name";
-    name.textContent = msg.pseudo;
+    name.textContent = pseudo;
 
     var time = document.createElement("span");
     time.className = "chat-message-time";
     time.textContent = timeLabel(new Date(msg.created_at));
 
-    head.appendChild(avatar);
+    head.appendChild(avatarWrap);
     head.appendChild(name);
     head.appendChild(time);
 
@@ -199,7 +224,7 @@ async function render() {
       var img = document.createElement("img");
       img.className = "chat-message-image";
       img.src = url;
-      img.alt = "Photo partagée par " + msg.pseudo;
+      img.alt = "Photo partagée par " + pseudo;
       img.loading = "lazy";
       li.appendChild(img);
     }
