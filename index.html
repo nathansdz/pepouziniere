@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Potachill — Internat de la Timone</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">
+        <span class="brand-name">Potachill</span>
+        <span class="brand-sub">Internat de la Timone</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="todo.html">To-Do</a></li>
+        <li class="dropdown">
+          <button class="dropdown-toggle" aria-expanded="false" aria-controls="participer-menu">Participer ▾</button>
+          <ul class="dropdown-menu" id="participer-menu" hidden>
+            <li>
+              <a href="https://lydia-app.com/placeholder" target="_blank" rel="noopener" id="lydia-link">
+                Cagnotte Lydia
+                <span class="menu-hint">Soutenir le projet</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="home">
+    <section class="hero">
+      <div class="jul" aria-hidden="true">
+        <svg viewBox="0 0 120 120" role="img" aria-label="Signe Jul">
+          <g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round">
+            <line x1="30" y1="25" x2="30" y2="95"/>
+            <line x1="60" y1="25" x2="60" y2="95"/>
+            <line x1="90" y1="25" x2="90" y2="95"/>
+            <line x1="18" y1="45" x2="102" y2="45"/>
+            <line x1="18" y1="75" x2="102" y2="75"/>
+          </g>
+        </svg>
+      </div>
+      <h1>Potachill</h1>
+      <p class="tagline">
+        Le potager, le terrain de pétanque, le petit jardin et la cour intérieure
+        de l'internat de la Timone — entretenus par et pour les ~120 internes.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="todo.html">Voir la To-Do</a>
+        <a class="btn btn-secondary" href="https://lydia-app.com/placeholder" target="_blank" rel="noopener" id="lydia-link-hero">Participer à la cagnotte</a>
+      </div>
+    </section>
+
+    <section class="cards">
+      <article class="card">
+        <h2>🌱 Proposer</h2>
+        <p>Une idée pour améliorer le potager ou les espaces extérieurs ? Ajoute-la à la To-Do avec sa priorité et son budget estimé.</p>
+        <a href="todo.html">Aller à la To-Do →</a>
+      </article>
+      <article class="card">
+        <h2>🤝 Participer</h2>
+        <p>Chacun peut contribuer : un coup de main, un arrosage, ou quelques euros via la cagnotte Lydia commune.</p>
+        <a href="https://lydia-app.com/placeholder" target="_blank" rel="noopener" id="lydia-link-card">Ouvrir la cagnotte →</a>
+      </article>
+      <article class="card">
+        <h2>🍅 Cultiver</h2>
+        <p>On trace ce qui est planté, quand et où, pour faire tourner les cultures et varier les espèces.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Potachill — Internat de la Timone, Marseille 🧿</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

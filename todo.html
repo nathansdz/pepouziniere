@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do — Potachill</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">
+        <span class="brand-name">Potachill</span>
+        <span class="brand-sub">Internat de la Timone</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="todo.html" aria-current="page">To-Do</a></li>
+        <li class="dropdown">
+          <button class="dropdown-toggle" aria-expanded="false" aria-controls="participer-menu">Participer ▾</button>
+          <ul class="dropdown-menu" id="participer-menu" hidden>
+            <li>
+              <a href="https://lydia-app.com/placeholder" target="_blank" rel="noopener" id="lydia-link">
+                Cagnotte Lydia
+                <span class="menu-hint">Soutenir le projet</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="todo-page">
+    <h1>To-Do du potager</h1>
+    <p class="page-intro">Propose une chose à faire, avec un titre court, une description, un budget estimé et une priorité.</p>
+
+    <section class="todo-form-section">
+      <form id="todo-form" class="todo-form">
+        <div class="form-group">
+          <label for="todo-title">Titre</label>
+          <input type="text" id="todo-title" name="title" maxlength="60" placeholder="Ex. Réparer l'arrosage" required>
+        </div>
+        <div class="form-group">
+          <label for="todo-description">Description</label>
+          <textarea id="todo-description" name="description" rows="3" placeholder="Quelques détails sur la tâche…" required></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="todo-budget">Budget estimé (€)</label>
+            <input type="number" id="todo-budget" name="budget" min="0" step="1" placeholder="0">
+          </div>
+          <div class="form-group">
+            <label for="todo-priority">Priorité</label>
+            <select id="todo-priority" name="priority" required>
+              <option value="urgent">Urgent</option>
+              <option value="normal" selected>Normal</option>
+              <option value="later">Ça peut attendre</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Ajouter la proposition</button>
+      </form>
+    </section>
+
+    <section class="todo-list-section">
+      <h2>Propositions</h2>
+      <ul id="todo-list" class="todo-list"></ul>
+      <p id="todo-empty" class="todo-empty" hidden>Aucune proposition pour l'instant. Sois le premier à en ajouter une !</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Potachill — Internat de la Timone, Marseille 🧿</p>
+  </footer>
+
+  <script src="js/todo.js"></script>
+</body>
+</html>
