@@ -10,13 +10,9 @@ Application de gestion des parties extérieures de l'internat de l'hôpital de l
 
 ## Lien de la cagnotte Lydia
 
-Le lien Lydia est un placeholder pour l'instant. Pour le configurer, exécutez dans la console du navigateur (une seule fois, par appareil) :
+La cagnotte est accessible ici : https://pots.lydia.me/collect/pots?id=86480-pepouziniere
 
-```js
-localStorage.setItem("potachill-lydia-url", "https://lydia-app.com/lien-de-votre-cagnotte");
-```
-
-Ou remplacez directement les URL `https://lydia-app.com/placeholder` dans `index.html` et `todo.html`.
+Elle est branchée sur tous les liens « Participer » (menu déroulant, bouton d'accueil et carte). Pour la changer, remplacez l'URL dans `index.html` et `todo.html`.
 
 ## Données
 
