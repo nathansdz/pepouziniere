@@ -80,3 +80,46 @@ end;
 $$;
 
 grant execute on function public.toggle_like(uuid, uuid) to anon, authenticated;
+
+-- ---------- Profils (inscription) ----------
+
+create table if not exists public.profiles (
+  id uuid primary key references auth.users(id) on delete cascade,
+  nom text not null,
+  prenom text not null,
+  pseudo text not null unique,
+  created_at timestamptz not null default now()
+);
+
+alter table public.profiles enable row level security;
+
+drop policy if exists "profiles lisibles par tous" on public.profiles;
+create policy "profiles lisibles par tous" on public.profiles
+  for select using (true);
+
+drop policy if exists "profile modifiable par son propriétaire" on public.profiles;
+create policy "profile modifiable par son propriétaire" on public.profiles
+  for update using (auth.uid() = id);
+
+-- Crée automatiquement le profil à l'inscription (métadonnées de signup)
+create or replace function public.handle_new_user()
+returns trigger
+language plpgsql
+security definer set search_path = public
+as $$
+begin
+  insert into public.profiles (id, nom, prenom, pseudo)
+  values (
+    new.id,
+    new.raw_user_meta_data->>'nom',
+    new.raw_user_meta_data->>'prenom',
+    new.raw_user_meta_data->>'pseudo'
+  );
+  return new;
+end;
+$$;
+
+drop trigger if exists on_auth_user_created on auth.users;
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute function public.handle_new_user();

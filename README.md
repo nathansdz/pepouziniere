@@ -28,3 +28,11 @@ Pour que les propositions et les likes soient partagés entre tous les internes 
 4. Collez-les dans [`js/config.js`](js/config.js) (`SUPABASE_URL` et `SUPABASE_ANON_KEY`) et commitez.
 
 Le site utilise automatiquement Supabase dès que ces deux valeurs sont renseignées ; sinon il retombe sur le stockage local. La clé `anon` est publique par conception (Row Level Security activé dans le schéma) : il faut la traiter comme une clé d'accès public en lecture/écriture sur les tables `todos` et `todo_likes`.
+
+### Authentification obligatoire
+
+L'inscription (Nom, Prénom, pseudo, mot de passe) et la connexion sont gérées par **Supabase Auth** ; le pseudo sert d'identifiant (pas d'email nécessaire, il est converti en `pseudo@potachill.local`).
+
+Après avoir créé le projet, dans **Authentication → Providers → Email**, désactivez **Confirm email** (sinon personne ne pourra se connecter, les adresses étant fictives).
+
+Tant que `js/config.js` n'est pas renseigné, le site reste accessible sans authentification (mode local).

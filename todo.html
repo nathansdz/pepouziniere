@@ -85,5 +85,9 @@
 
   <script src="js/config.js"></script>
   <script type="module" src="js/todo.js"></script>
+  <script type="module">
+    import { requireAuth, renderUserChip } from "./js/auth.js";
+    if (await requireAuth()) renderUserChip();
+  </script>
 </body>
 </html>
